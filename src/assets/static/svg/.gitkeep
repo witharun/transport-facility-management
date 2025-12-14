@@ -1,0 +1,8 @@
+# SVG Images Folder
+Place your SVG images in this folder.
+
+You can reference them in your Angular components using:
+- In HTML: <img src="assets/static/svg/your-image.svg" alt="Description">
+- In CSS: background-image: url('assets/static/svg/your-image.svg');
+- In TypeScript: const imagePath = 'assets/static/svg/your-image.svg';
+
