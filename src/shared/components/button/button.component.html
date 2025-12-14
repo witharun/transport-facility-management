@@ -1,0 +1,10 @@
+<button
+  [class]="getButtonClasses()"
+  [disabled]="disabled"
+  (click)="onClick()"
+>
+  {{ label }}
+  <img [src]=" '/assets/static/svg/' + icon + '.svg'" class="icon" *ngIf="icon" />
+</button>
+
+
