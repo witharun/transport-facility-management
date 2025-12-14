@@ -6,8 +6,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:gh-pages": "ng build --configuration production --base-href /transport-facility-management/",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "npm run build:gh-pages && node scripts/copy-404.js && npx gh-pages -d dist/transport-facility"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +30,7 @@
     "@angular/cli": "^18.0.0",
     "@angular/compiler-cli": "^18.0.0",
     "@types/jasmine": "~5.1.4",
+    "gh-pages": "^6.1.1",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
