@@ -1,0 +1,48 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Login</h2>
+      <p>Welcome back! Please login to continue.</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <app-form-input
+        formControlName="identifier"
+        label="Employee ID / Email"
+        type="text"
+        placeholder="Enter your employee ID or email"
+        [required]="true"
+        [showError]="isFieldInvalid('identifier')"
+        [errorMessage]="getErrorMessage('identifier')"
+      ></app-form-input>
+
+      <app-form-input
+        formControlName="password"
+        label="Password"
+        type="password"
+        placeholder="Enter your password"
+        [required]="true"
+        [showError]="isFieldInvalid('password')"
+        [errorMessage]="getErrorMessage('password')"
+      ></app-form-input>
+
+      <div class="message" *ngIf="message" [class.success]="messageType === 'success'" [class.error]="messageType === 'error'">
+        {{ message }}
+      </div>
+
+      <div class="form-actions">
+        <app-button
+          label="Login"
+          type="primary"
+          [disabled]="isLoading || loginForm.invalid"
+          (clicked)="onSubmit()"
+        ></app-button>
+      </div>
+
+      <div class="auth-footer">
+        <p>Don't have an account? <a (click)="navigateToSignup()" class="link">Sign Up</a></p>
+      </div>
+    </form>
+  </div>
+</div>
+

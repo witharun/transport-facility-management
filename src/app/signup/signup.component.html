@@ -1,0 +1,68 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Sign Up</h2>
+      <p>Create your account to get started.</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <app-form-input
+        formControlName="employeeId"
+        label="Employee ID"
+        type="text"
+        placeholder="Enter your employee ID"
+        [required]="true"
+        [showError]="isFieldInvalid('employeeId')"
+        [errorMessage]="getErrorMessage('employeeId')"
+      ></app-form-input>
+
+      <app-form-input
+        formControlName="email"
+        label="Email"
+        type="email"
+        placeholder="Enter your email"
+        [required]="true"
+        [showError]="isFieldInvalid('email')"
+        [errorMessage]="getErrorMessage('email')"
+      ></app-form-input>
+
+      <app-form-input
+        formControlName="password"
+        label="Password"
+        type="password"
+        placeholder="Enter your password (min. 6 characters)"
+        [required]="true"
+        [showError]="isFieldInvalid('password')"
+        [errorMessage]="getErrorMessage('password')"
+      ></app-form-input>
+
+      <app-form-input
+        formControlName="confirmPassword"
+        label="Confirm Password"
+        type="password"
+        placeholder="Confirm your password"
+        [required]="true"
+        [showError]="isFieldInvalid('confirmPassword')"
+        [errorMessage]="getErrorMessage('confirmPassword')"
+      ></app-form-input>
+
+      <div class="message" *ngIf="message" [class.success]="messageType === 'success'" [class.error]="messageType === 'error'">
+        {{ message }}
+      </div>
+
+      <div class="form-actions">
+        <app-button
+          label="Sign Up"
+          type="primary"
+          [disabled]="isLoading || signupForm.invalid"
+          (clicked)="onSubmit()"
+        ></app-button>
+      </div>
+
+      <div class="auth-footer">
+        <p>Already have an account? <a (click)="navigateToLogin()" class="link">Login</a></p>
+      </div>
+    </form>
+  </div>
+</div>
+
