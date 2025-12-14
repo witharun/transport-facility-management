@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="card">
+    <h2>Book a Ride</h2>
+    <p class="subtitle">Find and book available rides for today</p>
+
+    <div class="message" [class.success]="messageType === 'success'" [class.error]="messageType === 'error'" *ngIf="message">
+      {{ message }}
+    </div>
+
+    <div class="book-ride-layout">
+      <div class="left-section">
+        <form [formGroup]="bookRideForm">
+          <div class="form-inputs">
+            <app-form-input
+              label="Your Employee ID"
+              type="text"
+              placeholder="Enter your Employee ID"
+              [required]="true"
+              errorMessage="Employee ID is required"
+              [showError]="isFieldInvalid('employeeId')"
+              formControlName="employeeId"
+            ></app-form-input>
+
+            <div class="form-group">
+              <app-form-input
+                label="Current Time"
+                type="time"
+                [required]="false"
+                [min]="minTime"
+                [errorMessage]="getErrorMessage('currentTime')"
+                [showError]="isFieldInvalid('currentTime')"
+                formControlName="currentTime"
+              ></app-form-input>
+              <small class="help-text">Rides shown from current time up to 60 minutes ahead</small>
+            </div>
+          </div>
+        </form>
+
+        <div class="filter-section">
+          <div class="form-group">
+            <label class="form-label" for="vehicleTypeFilter">Filter by Vehicle Type</label>
+            <div class="custom-select-wrapper">
+              <select
+                id="vehicleTypeFilter"
+                class="form-control custom-select"
+                (change)="onVehicleTypeFilter($event)"
+                [attr.aria-label]="'Filter by Vehicle Type'"
+                title="Filter by Vehicle Type"
+              >
+                <option value="">All Vehicle Types</option>
+                <option *ngFor="let type of vehicleTypes" [value]="type">
+                  {{ type }}
+                </option>
+              </select>
+              <img src="/assets/static/svg/dropdown-chevron.svg" class="select-icon" alt="Dropdown icon" title="Dropdown" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="rides-section">
+          <h3>Available Rides ({{ filteredRides.length }})</h3>
+          
+          <div *ngIf="filteredRides.length === 0" class="no-rides">
+            <p>No rides available matching your criteria.</p>
+            <p class="help-text">Try adjusting the time or vehicle type filter.</p>
+          </div>
+
+          <div class="rides-grid" *ngIf="filteredRides.length > 0">
+            <app-ride-card
+              *ngFor="let ride of filteredRides"
+              [ride]="ride"
+              [showBookButton]="true"
+              (bookRide)="onBookRide($event)"
+            ></app-ride-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

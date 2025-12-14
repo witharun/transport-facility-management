@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="card">
+    <h2>Add New Ride</h2>
+    <p class="subtitle">Share your ride with colleagues for today</p>
+
+    <div class="message" [class.success]="messageType === 'success'" [class.error]="messageType === 'error'" *ngIf="message">
+      {{ message }}
+    </div>
+
+    <form [formGroup]="addRideForm" (ngSubmit)="onSubmit()">
+      <div class="grid grid-2">
+        <app-form-input
+          label="Employee ID"
+          type="text"
+          placeholder="Enter your Employee ID"
+          [required]="true"
+          [errorMessage]="getErrorMessage('employeeId')"
+          [showError]="isFieldInvalid('employeeId')"
+          formControlName="employeeId"
+        ></app-form-input>
+
+        <div class="form-group">
+          <label class="form-label" for="vehicleType">
+            Vehicle Type <span class="required">*</span>
+          </label>
+          <div class="custom-select-wrapper">
+            <select
+              id="vehicleType"
+              formControlName="vehicleType"
+              class="form-control custom-select"
+              [class.error]="isFieldInvalid('vehicleType')"
+              title="Select Vehicle Type"
+            >
+              <option value="">Select Vehicle Type</option>
+              <option *ngFor="let type of vehicleTypes" [value]="type">
+                {{ type }}
+              </option>
+            </select>
+            <img src="/assets/static/svg/dropdown-chevron.svg" class="select-icon" alt="Dropdown icon" title="Dropdown" />
+          </div>
+          <div class="error-message" *ngIf="isFieldInvalid('vehicleType')">
+            {{ getErrorMessage('vehicleType') }}
+          </div>
+        </div>
+
+        <app-form-input
+          label="Vehicle No"
+          type="text"
+          placeholder="Enter Vehicle Number"
+          [required]="true"
+          [errorMessage]="getErrorMessage('vehicleNo')"
+          [showError]="isFieldInvalid('vehicleNo')"
+          formControlName="vehicleNo"
+        ></app-form-input>
+
+        <app-form-input
+          label="Vacant Seats"
+          type="number"
+          placeholder="Number of available seats"
+          [required]="true"
+          [errorMessage]="getErrorMessage('vacantSeats')"
+          [showError]="isFieldInvalid('vacantSeats')"
+          formControlName="vacantSeats"
+        ></app-form-input>
+
+        <app-form-input
+          label="Time"
+          type="time"
+          [required]="true"
+          [min]="minTime"
+          [errorMessage]="getErrorMessage('time')"
+          [showError]="isFieldInvalid('time')"
+          formControlName="time"
+        ></app-form-input>
+
+        <app-form-input
+          label="Pick-up Point"
+          type="text"
+          placeholder="Enter pick-up location"
+          [required]="true"
+          [errorMessage]="getErrorMessage('pickUpPoint')"
+          [showError]="isFieldInvalid('pickUpPoint')"
+          formControlName="pickUpPoint"
+        ></app-form-input>
+
+        <div class="form-group full-width">
+          <app-form-input
+            label="Destination"
+            type="text"
+            placeholder="Enter destination"
+            [required]="true"
+            [errorMessage]="getErrorMessage('destination')"
+            [showError]="isFieldInvalid('destination')"
+            formControlName="destination"
+          ></app-form-input>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <app-button
+          label="Add Ride"
+          type="primary"
+          [disabled]="addRideForm.invalid"
+          (clicked)="onSubmit()"
+        ></app-button>
+      </div>
+    </form>
+  </div>
+</div>
+
+

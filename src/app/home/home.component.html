@@ -1,0 +1,61 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-content">
+      <div>
+        <h1>{{ title }}</h1>
+        <p class="tagline">{{ description }}</p>
+      </div>
+      <div class="user-info">
+        <div class="user-details">
+          <span class="user-name">{{ getCurrentUser()?.employeeId }}</span>
+          <span class="user-email">{{ getCurrentUser()?.email }}</span>
+        </div>
+        <div class="booked-rides-info" *ngIf="bookedRides.length > 0">
+          <div class="booked-ride-badge">
+            <span class="badge-icon">🚗</span>
+            <span class="badge-text">Booked Ride{{ bookedRides.length > 1 ? 's' : '' }}</span>
+          </div>
+          <div class="booked-rides-details">
+            <div *ngFor="let ride of bookedRides" class="booked-ride-item">
+              <div class="ride-info-line">
+                <strong>{{ ride.pickUpPoint }}</strong> → <strong>{{ ride.destination }}</strong>
+              </div>
+              <div class="ride-info-line">
+                <span>{{ ride.time }}</span> • <span>{{ ride.vehicleType }}</span> • <span>{{ ride.vehicleNo }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-button
+          label="Logout"
+          type="ghost"
+          size="small"
+          (clicked)="logout()"
+        ></app-button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tab-navigation">
+    <app-button
+      label="Add Ride"
+      variant="tab"
+      [active]="activeTab === 'add'"
+      (clicked)="setActiveTab('add')"
+      [icon]="'OfferRide'"
+    ></app-button>
+    <app-button
+      label="Book Ride"
+      variant="tab"
+      [active]="activeTab === 'book'"
+      (clicked)="setActiveTab('book')"
+      [icon]="'bookRide'"
+    ></app-button>
+  </nav>
+
+  <main class="app-content">
+    <app-add-ride *ngIf="activeTab === 'add'"></app-add-ride>
+    <app-book-ride *ngIf="activeTab === 'book'"></app-book-ride>
+  </main>
+</div>
+

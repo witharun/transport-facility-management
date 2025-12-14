@@ -1,0 +1,36 @@
+<div class="ride-card">
+  <div class="ride-header">
+    <h3>{{ ride.vehicleType }} - {{ ride.vehicleNo }}</h3>
+    <span class="badge" [class.available]="ride.vacantSeats > 0" [class.full]="ride.vacantSeats === 0">
+      {{ ride.vacantSeats }} {{ ride.vacantSeats === 1 ? 'Seat' : 'Seats' }} Available
+    </span>
+  </div>
+  <div class="ride-details">
+    <div class="detail-item">
+      <span class="detail-label">Time:</span>
+      <span class="detail-value">{{ ride.time }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-label">Pick-up:</span>
+      <span class="detail-value">{{ ride.pickUpPoint }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-label">Destination:</span>
+      <span class="detail-value">{{ ride.destination }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="detail-label">Driver/Employee ID:</span>
+      <span class="detail-value">{{ ride.employeeId }}</span>
+    </div>
+  </div>
+  <div class="ride-footer" *ngIf="showBookButton">
+    <app-button
+      label="Book Ride"
+      type="success"
+      [disabled]="ride.vacantSeats === 0"
+      (clicked)="onBookRide()"
+    ></app-button>
+  </div>
+</div>
+
+

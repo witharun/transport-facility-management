@@ -1,0 +1,26 @@
+<div class="form-group">
+  <label class="form-label" *ngIf="label" [for]="inputId">
+    {{ label }}
+    <span class="required" *ngIf="required">*</span>
+  </label>
+  <input
+    [id]="inputId"
+    [type]="type"
+    [value]="value"
+    [placeholder]="placeholder"
+    [disabled]="disabled"
+    [min]="min || null"
+    [attr.aria-label]="label || placeholder || 'Input field'"
+    [attr.title]="label || placeholder || 'Input field'"
+    [class.error]="showError && errorMessage"
+    (input)="onInput($event)"
+    (change)="onInput($event)"
+    (blur)="onTouched()"
+    class="form-control"
+  />
+  <div class="error-message" *ngIf="showError && errorMessage">
+    {{ errorMessage }}
+  </div>
+</div>
+
+
